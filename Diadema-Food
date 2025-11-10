@@ -1,0 +1,59 @@
+#Restaurantes e cardápios:
+restaurantes = {"Sabor Caseiro": { "Strogonoff de frango": 25.00, "Feijoada completa": 28.00, "Lasanha de carne": 30.00 }, "Comida Fit": { "Frango grelhado com legumes": 27.00, "Salada com atum": 22.00, "Omelete de claras": 20.00 }, "Veggie Life": { "Tofu com legumes": 24.00, "Feijoada vegana": 26.00, "Curry de grão-de-bico": 25.00 }}
+#Metodos de entrega e formas de pagamento
+entregas = ["Delivery", "Retirada no local"]
+pagamentos = ["Cartão", "PIX", "Dinheiro"]
+#Função principal:
+def sistema_delivery():
+    print("=" * 40)
+    print(" Bem-vindo a DiademaFood ")
+    print("=" * 40)
+#Escolher Restaurante:    
+    print("\nRestaurantes disponíveis:")
+    for i, nome in enumerate(restaurantes.keys(), 1):
+        print(f"{i}. {nome}")
+    escolha_restaurante = int(input("\nEscolha o restaurante (número): "))
+    restaurante = list(restaurantes.keys())[escolha_restaurante - 1]
+    print(f"\nVocê escolheu: {restaurante}")
+#Mostrar Cardápio:  
+    print("\nCardápio:")
+    cardapio = restaurantes[restaurante]
+    for i, (prato, preco) in enumerate(cardapio.items(), 1):
+        print(f"{i}. {prato} - R$ {preco:.2f}")
+    pedido = []
+    while True:
+        escolha = int(input("\nEscolha o prato (número): "))
+        prato = list(cardapio.keys())[escolha - 1]
+        quantidade = int(input("Quantidade: "))
+        pedido.append((prato, cardapio[prato], quantidade))
+        continuar = input("Deseja adicionar outro prato? (s/n): ").lower()
+        if continuar != 's':
+            break
+#Calcular Total:
+    total = sum(preco * qtd for _, preco, qtd in pedido)
+    print("\nResumo do pedido:")
+    for prato, preco, qtd in pedido:
+        print(f"{qtd}x {prato} - R$ {preco * qtd:.2f}")
+    print(f"\n Total: R$ {total:.2f}")
+#Método de Entrega:
+    print("\nMétodos de entrega:")
+    for i, tipo in enumerate(entregas, 1):
+        print(f"{i}. {tipo}")
+        entrega_escolhida = entregas[int(input("Escolha o método (número): ")) - 1]
+#Forma de pagamento:
+    print("\nFormas de pagamento:")
+    for i, forma in enumerate(pagamentos, 1):
+        print(f"{i}. {forma}")
+    pagamento_escolhido = pagamentos[int(input("Escolha a forma de pagamento (número): ")) - 1]
+#Feedback final:
+    print("\nPedido realizado com sucesso! ")
+    print(f"Restaurante: {restaurante}")
+    print(f"Entrega: {entrega_escolhida}")
+    print(f"Pagamento: {pagamento_escolhido}")
+    print(f"Total: R$ {total:.2f}")
+    print("\nAgradecemos por usar nosso delivery! ")
+    feedback = input("Deixe sua avaliação (1 a 5 estrelas): ")
+    print(f"\n Obrigado pela nota {feedback}! Até a próxima! ")
+#Executar sistema:
+if __name__ == "__main__":
+    sistema_delivery()
